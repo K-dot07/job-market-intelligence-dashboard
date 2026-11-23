@@ -1,0 +1,34 @@
+# Environment variables and secrets
+.env
+.env.*
+
+# Allow example configuration
+!.env.example
+
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+logs/*.log
+
+# IDE
+.vscode/
+
+# Temporary database practice scripts
+/db_insert_multiple.py
+/db_insert_test.py
+/db_test.py
+/test_env.py
+/test_rollback.py
+
+# Unrelated practice data
+/quotes.csv
