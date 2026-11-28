@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>JobInsight | Job Analytics</title>
+
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <h2>JobInsight</h2>
+        </div>
+
+        <nav>
+          <a href="../index.html" class="nav-link"> Dashboard </a>
+
+          <a href="jobs.html" class="nav-link"> Job Search </a>
+
+          <a href="analytics.html" class="nav-link active"> Job Analytics </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="header">
+          <div>
+            <h1>Job Analytics</h1>
+            <p>Understand job market trends and insights.</p>
+          </div>
+        </header>
+
+        <section class="dashboard-content">
+          <!-- Statistics -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>Total Jobs</h3>
+              <p id="analyticsTotalJobs">0</p>
+            </div>
+
+            <div class="stat-card">
+              <h3>Total Companies</h3>
+              <p id="analyticsCompanies">0</p>
+            </div>
+          </div>
+
+          <!-- Location Chart -->
+          <div class="analytics-card">
+            <h2>Jobs by Location</h2>
+            <div class="chart-container">
+              <canvas id="locationChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Experience Chart -->
+          <div class="analytics-card">
+            <h2>Experience Level Distribution</h2>
+            <div class="chart-container">
+              <canvas id="experienceChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Company Chart -->
+          <div class="analytics-card">
+            <h2>Jobs by Company</h2>
+            <div class="chart-container">
+              <canvas id="companyChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Skills Chart -->
+          <div class="analytics-card">
+            <h2>Most Demanded Skills</h2>
+            <div class="chart-container">
+              <canvas id="skillsChart"></canvas>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/analytics.js"></script>
+  </body>
+</html>
