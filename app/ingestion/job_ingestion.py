@@ -3,34 +3,62 @@ import logging
 import os
 from dotenv import load_dotenv
 import requests
+from pathlib import Path
 
 
-def fetch_jobs_from_api():
-    url = "https://api.adzuna.com/v1/api/jobs/in/search/1"
 
-    params = {
-        "app_id": ADZUNA_APP_ID,
-        "app_key": ADZUNA_APP_KEY,
-        "results_per_page": 5,
-        "what": "Python Developer",
-        "where": "Chennai"
+
+def fetch_jobs_from_api(target_jobs=200):
+    all_jobs = []
+    results_per_page = 50
+
+    total_available = None
+
+    for page in range(1, 11):
+        url = f"https://api.adzuna.com/v1/api/jobs/in/search/{page}"
+
+        params = {
+            "app_id": ADZUNA_APP_ID,
+            "app_key": ADZUNA_APP_KEY,
+            "results_per_page": results_per_page,
+            "content-type": "application/json"
+        }
+
+        response = requests.get(
+            url,
+            params=params,
+            timeout=30
+        )
+
+        print(f"Page {page} - Status: {response.status_code}")
+        response.raise_for_status()
+
+        data = response.json()
+
+        if total_available is None:
+            total_available = data.get("count", 0)
+            print("Total matching jobs:", total_available)
+
+        page_jobs = data.get("results", [])
+
+        if not page_jobs:
+            print("No more jobs available.")
+            break
+
+        all_jobs.extend(page_jobs)
+
+        print("Collected so far:", len(all_jobs))
+
+        if len(all_jobs) >= target_jobs:
+            break
+
+    print("Final jobs collected:", len(all_jobs))
+
+    return {
+        "count": total_available or 0,
+        "results": all_jobs
     }
 
-    response = requests.get(
-        url,
-        params=params,
-        timeout=30
-    )
-
-    print("Status code:", response.status_code)
-
-    response.raise_for_status()
-
-    data = response.json()
-
-    print("Total results:", data.get("count", 0))
-
-    return data
 
 def transform_job(job):
     return {
@@ -55,6 +83,11 @@ load_dotenv()
 ADZUNA_APP_ID = os.getenv("ADZUNA_APP_ID")
 ADZUNA_APP_KEY = os.getenv("ADZUNA_APP_KEY")
 
+if not ADZUNA_APP_ID or not ADZUNA_APP_KEY:
+    raise ValueError("Adzuna API credentials are missing")
+
+Path("logs").mkdir(parents=True, exist_ok=True)
+
 logging.basicConfig(
     filename="logs/ingestion.log",
     level=logging.INFO,
@@ -62,9 +95,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-logger.info("Job ingestion started")
-logger.warning("Duplicate job skipped")
-logger.error("Test error message")
 
 def get_sample_jobs():
     jobs = [
@@ -102,18 +132,17 @@ def clean_jobs(jobs):
     seen = set()
 
     for job in jobs:
-        title = job.get("job_title", "").strip().lower()
-        company = job.get("company_name", "").strip().lower()
+        title = (job.get("job_title") or "").strip()
+        company = (job.get("company_name") or "").strip()
+        source_url = (job.get("source_url") or "").strip()
 
-        if not title or not company:
+        if not title or not company or not source_url:
             continue
 
-        unique_key = (title, company)
-
-        if unique_key in seen:
+        if source_url in seen:
             continue
 
-        seen.add(unique_key)
+        seen.add(source_url)
         cleaned_jobs.append(job)
 
     return cleaned_jobs
@@ -122,9 +151,9 @@ def validate_jobs(jobs):
     valid_jobs = []
 
     for job in jobs:
-        title = job.get("job_title", "").strip()
-        company = job.get("company_name", "").strip()
-        source_url = job.get("source_url", "").strip()
+        title = (job.get("job_title") or "").strip()
+        company = (job.get("company_name") or "").strip()
+        source_url = (job.get("source_url") or "").strip()
 
         if not title or not company or not source_url:
             continue

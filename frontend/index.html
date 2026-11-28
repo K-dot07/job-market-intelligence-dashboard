@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobInsight | Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="logo">
+          <h2>JobInsight</h2>
+        </div>
+
+        <nav>
+          <a href="index.html" class="nav-link active">Dashboard</a>
+          <a href="pages/jobs.html" class="nav-link">Job Search</a>
+          <a href="pages/analytics.html" class="nav-link">Job Analytics</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="header">
+          <div>
+            <h1>Dashboard Overview</h1>
+            <p>Welcome to your Job Market Intelligence Dashboard</p>
+          </div>
+        </header>
+
+        <section class="dashboard-content">
+          <div class="section-heading">
+            <h2>Dashboard Home</h2>
+            <p>Here's what's happening in your job market.</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>Total Jobs</h3>
+              <p id="totalJobs">0</p>
+            </div>
+
+            <div class="stat-card">
+              <h3>Companies</h3>
+              <p id="totalCompanies">0</p>
+            </div>
+
+            <div class="stat-card">
+              <h3>Locations</h3>
+              <p id="totalLocations">0</p>
+            </div>
+
+            <div class="stat-card">
+              <h3>New This Week</h3>
+              <p id="newJobs">0</p>
+            </div>
+          </div>
+
+          <div class="recent-jobs">
+            <h2>Recent Job Listings</h2>
+
+            <div id="recentJobsList">
+              <p>Loading jobs...</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

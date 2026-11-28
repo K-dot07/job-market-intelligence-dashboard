@@ -1,7 +1,7 @@
+
 import logging
 
-from app.scraper.scraper import scrape_quotes
-from app.database.database import insert_quotes
+from app.ingestion.job_ingestion import main as ingest_jobs
 
 logging.basicConfig(
     level=logging.INFO,
@@ -10,17 +10,14 @@ logging.basicConfig(
     filemode="a"
 )
 
-try:
-    logging.info("Pipeline started.")
+if __name__ == "__main__":
+    try:
+        logging.info("Job pipeline started.")
 
-    quotes = scrape_quotes()
-    logging.info("Collected %d quotes.", len(quotes))
+        ingest_jobs()
 
-    inserted_count = insert_quotes(quotes)
-    logging.info("Inserted %d new quotes.", inserted_count)
+        logging.info("Job pipeline completed successfully.")
 
-    logging.info("Pipeline completed successfully.")
-
-except Exception:
-    logging.exception("Pipeline failed.")
-    raise
+    except Exception:
+        logging.exception("Job pipeline failed.")
+        raise

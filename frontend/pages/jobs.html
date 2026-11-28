@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobInsight | Job Search</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <h2>JobInsight</h2>
+        </div>
+
+        <nav>
+          <a href="../index.html" class="nav-link">Dashboard</a>
+          <a href="jobs.html" class="nav-link active">Job Search</a>
+          <a href="analytics.html" class="nav-link">Job Analytics</a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="header">
+          <div>
+            <h1>Job Search</h1>
+            <p>Find jobs matching your skills and preferences.</p>
+          </div>
+        </header>
+
+        <section class="dashboard-content">
+          <!-- Search Section -->
+          <div class="search-section">
+            <h2>Find Your Next Job</h2>
+
+            <div class="search-bar">
+              <input
+                type="text"
+                id="searchTitle"
+                placeholder="Search job title..."
+              />
+
+              <input
+                type="text"
+                id="searchLocation"
+                placeholder="Location..."
+              />
+
+              <button id="searchButton">Search Jobs</button>
+            </div>
+          </div>
+
+          <!-- Filters -->
+
+          <!-- Filters -->
+          <div class="filter-section">
+            <h3>Filters</h3>
+
+            <!-- Search Filters -->
+            <div class="filter-grid">
+              <select id="experienceFilter">
+                <option value="">All Experience Levels</option>
+                <option value="Fresher">Fresher</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+              </select>
+
+              <input
+                type="text"
+                id="companyFilter"
+                placeholder="Company name"
+              />
+
+              <input
+                type="text"
+                id="skillsFilter"
+                placeholder="Skills (e.g. Python)"
+              />
+            </div>
+
+            <!-- Sorting and Clear Filters -->
+            <div class="search-actions">
+              <button id="clearFilters" type="button">Clear Filters</button>
+
+              <select id="sortBy">
+                <option value="id">Default order</option>
+                <option value="title">Job Title</option>
+                <option value="company">Company</option>
+                <option value="posted_date">Posted Date</option>
+              </select>
+
+              <select id="sortOrder">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="job-results">
+            <div class="results-heading">
+              <h2>Available Jobs</h2>
+              <span id="jobCount">0 jobs found</span>
+            </div>
+
+            <div id="jobResults">
+              <p>Search for jobs to see results.</p>
+            </div>
+            <div class="pagination">
+              <button id="previousPage" disabled>Previous</button>
+
+              <span id="pageInfo">Page 1</span>
+
+              <button id="nextPage" disabled>Next</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/jobs.js"></script>
+  </body>
+</html>

@@ -2,6 +2,8 @@ from pydantic import BaseModel, Field
 from fastapi import FastAPI, HTTPException
 from app.database.database import get_connection
 from app.routers.jobs import router as jobs_router
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 
 class QuoteCreate(BaseModel):
@@ -12,6 +14,18 @@ app = FastAPI(
     title="Job Market Dashboard API",
     description="Backend API for the Job Market Dashboard",
     version="1.0.0",
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 app.include_router(jobs_router)
 
