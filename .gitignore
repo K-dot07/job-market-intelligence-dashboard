@@ -32,3 +32,5 @@ logs/*.log
 
 # Unrelated practice data
 /quotes.csv
+
+node_modules/
